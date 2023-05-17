@@ -1,9 +1,9 @@
 create database menu;
 use menu;
 create table items(
-    id int not null primary key auto_increment,
-    name varchar(255) not null,
-    description varchar(255) not null,
+    id serial primary key,
+    name varchar(255),
+    description varchar(255),
     price double not null
 );
 

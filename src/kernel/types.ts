@@ -1,4 +1,4 @@
-export type Entity<Tidentifier extends number | string>={
+export type Entity <Tidentifier extends number | string>={
     id?: Tidentifier;
 }
 
@@ -7,6 +7,6 @@ export type ReponseApi<T>={
     error?: boolean,
     message?: string,
     entity?: T,
-    entities: T[],
+    entities?: T[],
     count?: number;
 }
