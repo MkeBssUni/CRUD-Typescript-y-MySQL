@@ -105,8 +105,6 @@ export class ItemController{
                 count: 1,
                 entity: item
             }
-
-            if(!item) body = {...body, code: 400, message: "Error", count: undefined}
             return res.status(body.code).json(body);
 
         } catch (error) {

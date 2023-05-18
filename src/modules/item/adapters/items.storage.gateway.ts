@@ -45,7 +45,7 @@ export class ItemStorageGateway implements ItemRepository{
             const exists: boolean= false;
             const item: Item = await this.findItem(id);
             if(item){
-                const response= await pool.query('update items set name=$2, price=$3, description=$4 where id=$1')
+                const response= await pool.query('update items set name=$2, price=$3, description=$4, image=$5 where id=$1 returning *;', [id, name, price, description, image])
                 const updatedItem= response.rows[0] as Item;
                 return updatedItem;
             }else{
