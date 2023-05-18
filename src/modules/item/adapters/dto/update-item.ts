@@ -1,7 +1,7 @@
 export type UpdateItemDto ={
     id: number,
-    name: String,
+    name: string,
     price: number,
-    description: String,
-    image?: String | null
+    description: string,
+    image?: string | null
 }

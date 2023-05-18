@@ -6,7 +6,6 @@ import {DeleteItemInteractor} from '../use-cases/delete-item-interactor'
 import {UpdateItemInteractor} from '../use-cases/update-item-interactor'
 import { Item } from "../entities/items";
 import { ItemRepository } from "../use-cases/ports/item.repository";
-import { GetItemDto } from "./dto/get-items";
 import { SaveItemDto } from "./dto/save-item";
 import { UpdateItemDto } from "./dto/update-item";
 import { ItemStorageGateway } from "./items.storage.gateway";

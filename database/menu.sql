@@ -7,10 +7,12 @@ create table items(
     price decimal not null
 );
 
-INSERT INTO items (name, description, price)
-VALUES ('Pizza', 'Pepperoni Pizza', 10.99),
-       ('Burger', 'Cheese Burger', 5.99),
-       ('Fries', 'French Fries', 2.99),
-       ('Soda', 'Coke', 1.99);
+alter table items add column image varchar(255);
+
+INSERT INTO items (name, description, price, image)
+VALUES ('Pizza', 'Pepperoni Pizza', 10.99, 'asdasds'),
+       ('Burger', 'Cheese Burger', 5.99, 'asdasdsd'),
+       ('Fries', 'French Fries', 2.99, 'asdasdasd'),
+       ('Soda', 'Coke', 1.99,'asdasdsad');
 
 select * from items;

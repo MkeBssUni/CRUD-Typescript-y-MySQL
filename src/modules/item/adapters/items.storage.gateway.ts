@@ -1,6 +1,5 @@
 import { Item } from "../entities/items"
 import { ItemRepository } from "../use-cases/ports/item.repository"
-import { GetItemDto } from "./dto/get-items"
 import { SaveItemDto } from "./dto/save-item"
 import { UpdateItemDto } from "./dto/update-item"
 import {pool} from "../../../utils/dbconfig"
@@ -9,7 +8,7 @@ export class ItemStorageGateway implements ItemRepository{
     
     async findAll(): Promise<Item[]>{
         try {
-            const response = await pool.query('Select * from items');
+            const response = await pool.query('Select * from items;');
             const items: Item[]= response.rows;
             return items;
         } catch (error) {
@@ -20,10 +19,9 @@ export class ItemStorageGateway implements ItemRepository{
 
     async findItem(payload: number): Promise<Item> {
         try {
-            //const id: number= payload;
-            const response = await pool.query('Select * from items where id=$1;',[payload])
-            const item: Item= response.rows[0] as Item;
-            return item;
+            const id: number= payload;
+            const response = await pool.query('Select * from items where id=$1;',[id])
+            return response.rows[0] as Item;
         } catch (error) {
             console.log("Error Get One",error)
             throw new Error;
