@@ -88,4 +88,65 @@ export class ItemController{
             return res.status(this.getError().code).json(this.getError())
         }
     }
+
+    static update = async (req: Request, res: Response): Promise<Response>=>{
+        try {
+            const id: number = parseInt(req.params.id);
+            const payload: UpdateItemDto= {id: id,...req.body} as UpdateItemDto;
+
+            const repo: ItemRepository= new ItemStorageGateway();
+            const interactor: UpdateItemInteractor = new UpdateItemInteractor(repo);
+
+            const item: Item= await interactor.execute(payload)
+
+            let body: ReponseApi<Item>={ 
+                code: 200,
+                error: false,
+                message: 'OK',
+                count: 1,
+                entity: item
+            }
+
+            if(!item) body = {...body, code: 400, message: "Error", count: undefined}
+            return res.status(body.code).json(body);
+
+        } catch (error) {
+            console.log(error);
+            return res.status(this.getError().code).json(this.getError())
+        }
+    }
+
+    static delete  = async (req: Request, res: Response): Promise<Response>=>{
+        try {
+            const id: number= parseInt(req.params.id);
+            
+            const repo: ItemRepository= new ItemStorageGateway();
+            const interactor: DeleteItemInteractor= new DeleteItemInteractor(repo);
+
+            const itemDeleted: Item = await interactor.execute(id);
+
+            let body: ReponseApi<Item>={
+                code: 200,
+                error: false,
+                message: 'OK',
+                count: 1,
+                entity: itemDeleted
+            }
+
+            if(!itemDeleted) body = {...body, code: 400, message: 'Error', count: undefined}
+            return res.status(body.code).json(body);
+            
+        } catch (error) {
+            console.log(error)
+            return res.status(this.getError().code).json(this.getError())
+        }
+    }
 }
+
+router.get('/items/', ItemController.findAll)
+router.get('/items/:id', ItemController.findOne)
+router.post('/items/',ItemController.insert)
+router.put('/items/:id',ItemController.update)
+router.delete('/items/:id',ItemController.delete)
+
+export default router;
