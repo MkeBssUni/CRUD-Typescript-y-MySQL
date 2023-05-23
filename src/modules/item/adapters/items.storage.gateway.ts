@@ -3,7 +3,7 @@ import { ItemRepository } from "../use-cases/ports/item.repository"
 import { SaveItemDto } from "./dto/save-item"
 import { UpdateItemDto } from "./dto/update-item"
 import {pool} from "../../../utils/dbconfig"
-
+import {sendEmailItemSaved} from "../use-cases/save-item-email"
 export class ItemStorageGateway implements ItemRepository{
     
     async findAll(): Promise<Item[]>{
@@ -32,6 +32,7 @@ export class ItemStorageGateway implements ItemRepository{
             const {name, price, description, image} = payload;
             const response = await pool.query('Insert into items (name, price, description, image) VALUES ($1,$2,$3,$4) returning *;',[name, price, description,image])
             const item: Item = response.rows[0] as Item;
+            sendEmailItemSaved("i20213tn095@utez.edu.mx","Nuevo item registrado", name, price);
             return item;
         } catch (error) {
             console.log("Error Save",error)
