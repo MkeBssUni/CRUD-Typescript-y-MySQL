@@ -1,5 +1,5 @@
 import {UseCase} from "../../../kernel/contracts"
-import {ReponseApi} from "../../../kernel/types"
+import {ResponseApi} from "../../../kernel/types"
 import {Item} from "../entities/items"
 import {ItemRepository} from "../use-cases/ports/item.repository"
 

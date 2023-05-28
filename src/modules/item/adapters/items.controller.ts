@@ -9,18 +9,18 @@ import { ItemRepository } from "../use-cases/ports/item.repository";
 import { SaveItemDto } from "./dto/save-item";
 import { UpdateItemDto } from "./dto/update-item";
 import { ItemStorageGateway } from "./items.storage.gateway";
-import {ReponseApi} from "../../../kernel/types"
+import {ResponseApi} from "../../../kernel/types"
 
 const router = Router();
 
 export class ItemController{
 
-    static getError(): ReponseApi<Item>{
+    static getError(): ResponseApi<Item>{
         return{
             code: 500,
             error: true,
             message: 'Error interno del servidor',
-        } as ReponseApi<Item>
+        } as ResponseApi<Item>
     }
 
     static findAll = async (req: Request, res: Response): Promise<Response>=>{
@@ -29,7 +29,7 @@ export class ItemController{
             const getInteractor: GetItemsInteractor = new GetItemsInteractor(itemRepository);
 
             const items: Item[] = await getInteractor.execute();
-            const body: ReponseApi<Item>={
+            const body: ResponseApi<Item>={
                 code: 200,
                 error: false,
                 message: 'Ok',
@@ -50,7 +50,7 @@ export class ItemController{
             const interactor: GetItemInteractor = new GetItemInteractor(repo);
 
             const item: Item = await interactor.execute(id);
-            const body: ReponseApi<Item>={
+            const body: ResponseApi<Item>={
                 code: 200,
                 error: false,
                 message: 'OK',
@@ -72,7 +72,7 @@ export class ItemController{
             const interactor: SaveItemInteractor = new SaveItemInteractor(repo);
 
             const item: Item= await interactor.execute(payload);
-            const body: ReponseApi<Item>={
+            const body: ResponseApi<Item>={
                 code: 200,
                 error: false,
                 message: 'OK',
@@ -98,7 +98,7 @@ export class ItemController{
 
             const item: Item= await interactor.execute(payload)
 
-            let body: ReponseApi<Item>={ 
+            let body: ResponseApi<Item>={ 
                 code: 200,
                 error: false,
                 message: 'OK',
@@ -122,7 +122,7 @@ export class ItemController{
 
             const itemDeleted: Item = await interactor.execute(id);
 
-            let body: ReponseApi<Item>={
+            let body: ResponseApi<Item>={
                 code: 200,
                 error: false,
                 message: 'OK',

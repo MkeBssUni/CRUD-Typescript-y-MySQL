@@ -1,4 +1,4 @@
-import {ReponseApi} from "../../../../kernel/types"
+import {ResponseApi} from "../../../../kernel/types"
 import {Item} from "../../entities/items"
 import {SaveItemDto} from "../../adapters/dto/save-item"
 import {UpdateItemDto} from "../../adapters/dto/update-item"
