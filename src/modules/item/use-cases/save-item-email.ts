@@ -8,7 +8,7 @@ export function sendEmailItemSaved (to: string, subject: string, itemName: strin
         "auth":{
             "type": "login",
             "user": "i20213tn095@utez.edu.mx",
-            "pass": ""
+            "pass": "yrnhlftguceuepgz"
         }
     }
 
