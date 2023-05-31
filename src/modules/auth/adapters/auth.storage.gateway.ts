@@ -15,7 +15,6 @@ export class AuthStorageGateway implements AuthRepository{
                 const user= response.rows[0] as AuthUser;
                 if(await validatePassword(password, user.password)){
                     const usuario=await pool.query('Select * from users where id=$1;',[user.id]);
-                    console.log("User id: ",user.id)
                     const fullUser= response.rows[0] as User;
                     const token: string= generateToken(fullUser);
                     const authUser: AuthUser= {
@@ -32,8 +31,7 @@ export class AuthStorageGateway implements AuthRepository{
                 throw new Error("User not found");
             }
         } catch (error) {
-            console.log("Error al iniciar sesión")
-            throw new Error;
+            throw new Error("Error LOGIN");
         }
     }
 }
