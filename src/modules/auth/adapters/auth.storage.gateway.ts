@@ -10,12 +10,12 @@ export class AuthStorageGateway implements AuthRepository{
     async login(payload: AuthUserDto): Promise<AuthUser>{
         try {
             const {username, password} = payload;
-            const exists: boolean= false;
-            const response = await pool.query('Select * from users where username=$1 returning *',[username]);
+            const response = await pool.query('Select * from users where username=$1;',[username]);
             if(response.rows[0]){
                 const user= response.rows[0] as AuthUser;
                 if(await validatePassword(password, user.password)){
-                    const usuario=await pool.query('Select * from userse where id=$1 returning*;',[user.id]);
+                    const usuario=await pool.query('Select * from users where id=$1;',[user.id]);
+                    console.log("User id: ",user.id)
                     const fullUser= response.rows[0] as User;
                     const token: string= generateToken(fullUser);
                     const authUser: AuthUser= {
