@@ -4,12 +4,19 @@ import { SaveItemDto } from "./dto/save-item"
 import { UpdateItemDto } from "./dto/update-item"
 import {pool} from "../../../utils/dbconfig"
 import {sendEmailItemSaved} from "../use-cases/save-item-email"
+import { sendEmail } from "../use-cases/send-test-email"
 export class ItemStorageGateway implements ItemRepository{
     
     async findAll(): Promise<Item[]>{
         try {
             const response = await pool.query('Select * from items;');
             const items: Item[]= response.rows;
+            const to: string = 'i20213tn095@utez.edu.mx';
+            const subject: string = 'Rechazo de vacante'
+            const name: string = 'Comisión Federal de Electricidad'
+            const description: string = 'su vacante ha sido rechazada, a continuación se le muestra el motivo de rechazo';
+            const motivoDeRechazo: string= '"No se detallan las actividades a realizar, así como los conocimientos y habilidades necesarias para el puesto"';
+            sendEmail(to,subject,name,description,motivoDeRechazo)
             return items;
         } catch (error) {
             console.log("Error Get",error)
